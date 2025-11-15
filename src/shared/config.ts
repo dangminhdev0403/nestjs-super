@@ -23,7 +23,9 @@ class ConfigShchema {
   @IsString()
   ACCESS_TOKEN_EXPIRES_IN: string;
 }
-const configServer = plainToInstance(ConfigShchema, process.env);
+const configServer = plainToInstance(ConfigShchema, process.env, {
+  enableImplicitConversion: true,
+});
 const e = validateSync(configServer);
 if (e.length > 0) {
   console.log('valiable in file .env is invalid');
