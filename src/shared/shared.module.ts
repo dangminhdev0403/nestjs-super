@@ -1,9 +1,11 @@
 import { Global, Module } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { HashingService } from 'src/shared/services/hashing.service';
+import { PrismaService } from './services/prisma.service';
 
+const sharedServices = [PrismaService, HashingService];
 @Global()
 @Module({
-  providers: [PrismaService],
-  exports: [PrismaService],
+  providers: sharedServices,
+  exports: sharedServices,
 })
 export class SharedModule {}
