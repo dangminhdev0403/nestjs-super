@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-/*
-https://docs.nestjs.com/providers#services
-*/
 import { Injectable } from '@nestjs/common';
-import { hash } from 'bcrypt';
-const saltRoutes = 10;
+import { compare as bcryptCompare, hash } from 'bcrypt';
+
+const saltRounds = 10;
+
 @Injectable()
 export class HashingService {
-  hash(value: string) {
-    return hash(value, saltRoutes);
+  // Hash password
+  async hash(value: string): Promise<string> {
+    return await hash(value, saltRounds);
   }
-  compare(value: string, hashedValue: string) {
-    return this.compare(value, hashedValue);
+
+  // Compare password
+  async compare(value: string, hashedValue: string): Promise<boolean> {
+    return await bcryptCompare(value, hashedValue);
   }
 }
