@@ -2,8 +2,11 @@ import { Logger, UnprocessableEntityException, ValidationPipe } from '@nestjs/co
 import { NestFactory } from '@nestjs/core';
 import { Server } from 'http';
 import { AddressInfo } from 'net';
+import { LoggingInterceptor } from 'src/shared/Interceptors/logging.interceptor';
+import { TranformInterceptor } from 'src/shared/Interceptors/tranform.interceptor';
 import { AppModule } from './app.module';
 async function bootstrap() {
+  const interceptors = [new LoggingInterceptor(), new TranformInterceptor()];
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
@@ -21,6 +24,8 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.useGlobalInterceptors(...interceptors);
   const port = parseInt(process.env.PORT ?? '3000');
   await app.listen(port);
   const server = app.getHttpServer() as Server;

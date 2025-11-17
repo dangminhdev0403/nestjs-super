@@ -22,6 +22,13 @@ export class AuthService {
           password: hashedPassword,
           name: body.name,
         },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          createdAt: true,
+          password: false,
+        },
       });
       return user;
     } catch (error) {
