@@ -3,7 +3,13 @@ https://docs.nestjs.com/controllers#controllers
 */
 
 import { Body, Controller, Post, SerializeOptions } from '@nestjs/common';
-import { LoginResDTO, RegisterBodyDTO, RegisterResDTO } from 'src/routes/auth/auth.dto';
+import {
+  LoginResDTO,
+  RefreshToken,
+  RegisterBodyDTO,
+  RegisterResDTO,
+  ResfreshTokenBodyDTO,
+} from 'src/routes/auth/auth.dto';
 import { AuthService } from 'src/routes/auth/auth.service';
 
 @Controller('auth')
@@ -19,5 +25,9 @@ export class AuthController {
   @Post('login')
   async login(@Body() body: any) {
     return new LoginResDTO(await this.authService.login(body));
+  }
+  @Post('refresh-token')
+  async refreshToken(@Body() body: ResfreshTokenBodyDTO) {
+    return new RefreshToken(await this.authService.refreshToken(body.refreshToken));
   }
 }
