@@ -5,13 +5,13 @@ import { SuccesResDTO } from 'src/shared/shared.dto';
 
 export class LoginBodyDTO {
   @IsString()
-  email: string;
+  email!: string;
   @IsString()
-  password: string;
+  password!: string;
 }
 export class LoginResDTO {
-  accessToken: string;
-  refreshToken: string;
+  accessToken!: string;
+  refreshToken!: string;
   constructor(partial: Partial<LoginResDTO>) {
     Object.assign(this, partial);
   }
@@ -19,25 +19,25 @@ export class LoginResDTO {
 
 export class ResfreshTokenBodyDTO {
   @IsString()
-  refreshToken: string;
+  refreshToken!: string;
 }
 export class RefreshToken extends LoginResDTO {}
 export class RegisterBodyDTO extends LoginBodyDTO {
   @IsString()
-  name: string;
+  name!: string;
   @IsString()
   @Match('password', { message: 'Passwords do not match' })
-  confirmPassword: string;
+  confirmPassword!: string;
 }
 
 export class RegisterResData {
-  id: number;
-  email: string;
-  name: string | null;
+  id!: number;
+  email!: string;
+  name!: string | null;
   @Exclude()
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  password!: string;
+  createdAt!: Date;
+  updatedAt!: Date;
   constructor(partial: Partial<RegisterResData>) {
     Object.assign(this, partial);
   }
