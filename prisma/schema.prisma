@@ -1,12 +1,12 @@
 generator client {
   provider = "prisma-client"
-   output   = "../src/generated" 
+  output   = "../prisma/generated"
 }
-
 
 datasource db {
   provider = "postgresql"
 }
+
 model Language {
   id                   Int                   @id @default(autoincrement())
   name                 String                @db.VarChar(500)
